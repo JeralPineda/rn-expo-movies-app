@@ -1,16 +1,15 @@
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "../global.css";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// Create a client
+const queryClient = new QueryClient();
+
+export default function RootLayout() {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text>Hello World</Text>
-      {children}
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <Stack />
+    </QueryClientProvider>
   );
 }
