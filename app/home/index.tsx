@@ -3,10 +3,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useMovies } from "@/presentation/hooks/useMovies";
 import SlidesShow from "@/presentation/components/movies/slides-show";
+import MovieHorizontalList from "@/presentation/components/movies/movie-horizontal-list";
 
 export default function Home() {
   const safeArea = useSafeAreaInsets();
-  const { nowPlayingQuery } = useMovies();
+  const { nowPlayingQuery, popularQuery } = useMovies();
 
   if (nowPlayingQuery.isLoading) {
     return (
@@ -22,6 +23,9 @@ export default function Home() {
 
       {/* Carousel de imágenes  */}
       <SlidesShow movies={nowPlayingQuery.data ?? []} />
+
+      {/* Popular*/}
+      <MovieHorizontalList movies={popularQuery.data ?? []} title="Populares" />
     </View>
   );
 }
