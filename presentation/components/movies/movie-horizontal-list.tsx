@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import MoviePoster from "./movie-poster";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface MovieHorizontalListProps {
   title: string;
@@ -26,6 +26,14 @@ export default function MovieHorizontalList({
 }: MovieHorizontalListProps) {
   const isLoading = useRef(false);
 
+  //Si las películas cambian,
+  //se cambia el estado de carga para que permita la siguiente pagina
+  useEffect(() => {
+    setTimeout(() => {
+      isLoading.current = false;
+    }, 200);
+  }, [movies]);
+
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (isLoading.current) return;
 
@@ -40,7 +48,6 @@ export default function MovieHorizontalList({
     isLoading.current = true;
 
     // Cargar más películas
-    console.log("Cargando más películas");
     loadNextPage && loadNextPage();
   };
 
@@ -50,7 +57,7 @@ export default function MovieHorizontalList({
 
       <FlatList
         data={movies}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
         renderItem={({ item }) => (
           <MoviePoster id={item.id} poster={item.poster} smallPoster />
         )}
