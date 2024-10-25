@@ -1,5 +1,5 @@
 import { movieApi } from "@/core/api/movie-api";
-import { MovieResponse } from "@/infrastructure/interfaces/movie-response";
+import { MovieResponse } from "@/infrastructure/interfaces/movie.response";
 import { MovieMapper } from "@/infrastructure/mappers/movie-mapper";
 
 interface Options {
